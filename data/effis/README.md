@@ -1,11 +1,22 @@
-# EFFIS reference layer
+# EFFIS reference data
 
-The burned-area practical is wired to compare the student dNBR result with a small EFFIS reference layer at:
+For the course we use the **small Galičica EFFIS subset** as the default reference layer.
 
-`data/effis/galicica_effis.gpkg`
+## Recommended local filename
 
-For the course, keep only a clipped Galičica/Ohrid-area reference file here rather than the full EFFIS dataset.
+`data/effis/Galicica.gpkg`
 
-The trainer-provided Google Drive folder currently exposes the shapefile sidecars `.dbf`, `.shx`, and `.prj`; the `.shp` geometry file was not visible through the connected Drive listing when the notebook was prepared. Once the complete source layer is available, clip it to the course AOI and save it as `galicica_effis.gpkg`.
+The notebooks also accept `galicica_effis.gpkg`.
 
-The notebook `notebooks/03_burned_area_severity.ipynb` detects this file automatically and skips the EFFIS comparison gracefully if it is absent.
+Source file (Google Drive):
+https://drive.google.com/open?id=17pmI7cKbML49m6C8OWdQ8UUV7Y8E6eCu&usp=drive_fs
+
+This subset is small (~0.3 MB) and contains 46 burned-area polygons for the Galičica/Ohrid/Prespa surroundings, covering 2017–2025.
+
+A much larger Balkans subset is available separately (~96 MB, 12,876 polygons):
+https://drive.google.com/open?id=1p0gTGlf6FookWzWPLRvZeGRqd299bWNF&usp=drive_fs
+
+Do not use the Balkans file as the default student dataset; keep it as an optional trainer/reference layer.
+
+The AOI GeoPackage supplied on 27 Aug 2026 currently contains **zero features**, so it should be regenerated before use:
+https://drive.google.com/open?id=1i-q4Ml2c80rqCMHRr8pbE5nxqqOfzQ0H&usp=drive_fs
