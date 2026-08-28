@@ -5,3 +5,6 @@ __pycache__/
 outputs/
 tmp/
 cache/
+
+data/weather/_tmp/
+*.part
