@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import calendar
+import shutil
+import zipfile
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -90,10 +92,77 @@ def normalize_time(ds: xr.Dataset) -> xr.Dataset:
 
 
 def open_download(path: Path) -> xr.Dataset:
-    """Open a NetCDF download, load it into memory, and close the file."""
-    with xr.open_dataset(path) as src:
-        ds = normalize_time(src).load()
-    return ds
+    """
+    Open a CDS download robustly.
+
+    CDS can occasionally return a ZIP archive even when
+    download_format="unarchived" was requested. This happens in particular
+    when GRIB fields have structural differences (for example around the
+    ERA5-Land / ERA5-Land-T transition). The archive can contain several
+    NetCDF files with non-intuitive names.
+
+    Detect the file by content rather than by extension, combine split
+    NetCDF parts by coordinates, load into memory, and close all source files.
+    """
+    if zipfile.is_zipfile(path):
+        extract_dir = path.with_suffix(path.suffix + ".extracted")
+        if extract_dir.exists():
+            shutil.rmtree(extract_dir)
+        extract_dir.mkdir(parents=True)
+
+        try:
+            with zipfile.ZipFile(path) as zf:
+                zf.extractall(extract_dir)
+
+            nc_files = sorted(extract_dir.rglob("*.nc"))
+            if not nc_files:
+                contents = [str(p.relative_to(extract_dir)) for p in extract_dir.rglob("*") if p.is_file()]
+                raise RuntimeError(
+                    f"CDS returned a ZIP archive for {path}, but it contained no NetCDF files. "
+                    f"Archive contents: {contents}"
+                )
+
+            opened = [normalize_time(xr.open_dataset(p)) for p in nc_files]
+            try:
+                if len(opened) == 1:
+                    ds = opened[0].load()
+                else:
+                    try:
+                        ds = xr.combine_by_coords(
+                            opened,
+                            combine_attrs="override",
+                            join="outer",
+                        ).load()
+                    except Exception:
+                        # Some CDS split archives contain different variable
+                        # groups on the same coordinates rather than time slices.
+                        ds = xr.merge(
+                            opened,
+                            compat="override",
+                            join="outer",
+                            combine_attrs="override",
+                        ).load()
+            finally:
+                for src in opened:
+                    src.close()
+
+            print(
+                f"Opened CDS ZIP payload from {path.name}: "
+                f"{len(nc_files)} NetCDF part(s)"
+            )
+            return ds
+        finally:
+            shutil.rmtree(extract_dir, ignore_errors=True)
+
+    try:
+        with xr.open_dataset(path, engine="netcdf4") as src:
+            return normalize_time(src).load()
+    except Exception as exc:
+        raise RuntimeError(
+            f"Could not open CDS download {path}. It is neither a readable "
+            "NetCDF file nor a ZIP archive containing NetCDF files. "
+            "The CDS may have returned GRIB data unexpectedly."
+        ) from exc
 
 
 def standardize_names(ds: xr.Dataset) -> xr.Dataset:
