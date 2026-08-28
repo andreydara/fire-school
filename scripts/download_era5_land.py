@@ -37,6 +37,7 @@ CLIM_BASELINE_START_YEAR = 1991
 CLIM_BASELINE_END_YEAR = 2020
 FIRESEASON_START_MONTH = 4
 FIRESEASON_END_MONTH = 10  # April–October, inclusive
+HISTORICAL_CHUNK_YEARS = 1  # Keep CDS requests below current cost limits.
 
 # ERA5-Land is normally available close to real time. Use a conservative
 # lag so the script does not request the newest, potentially unavailable day.
@@ -375,7 +376,7 @@ def historical_fireseason_raw(
     end_year: int,
     force: bool = False,
 ) -> list[xr.Dataset]:
-    """Download complete past years in restartable five-year blocks."""
+    """Download complete past years in restartable one-year chunks."""
     datasets: list[xr.Dataset] = []
     if end_year < start_year:
         return datasets
@@ -384,8 +385,8 @@ def historical_fireseason_raw(
     # 24-hour accumulation for 31 October. Extra November data are discarded.
     months = [f"{m:02d}" for m in range(FIRESEASON_START_MONTH, 12)]
 
-    for years in year_blocks(start_year, end_year, width=5):
-        label = f"{years[0]}_{years[-1]}"
+    for years in year_blocks(start_year, end_year, width=HISTORICAL_CHUNK_YEARS):
+        label = str(years[0]) if len(years) == 1 else f"{years[0]}_{years[-1]}"
         target = TMPDIR / f"fireseason_raw_{label}.nc"
 
         request = {
