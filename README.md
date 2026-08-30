@@ -17,7 +17,7 @@ group_project/            # Galičica capstone instructions/templates
 solutions/                # trainer/reference material
 ```
 
-Planned student notebooks:
+Student notebooks:
 
 1. `01_python_eo_intro.ipynb`
 2. `02_historical_fires.ipynb`
@@ -61,3 +61,14 @@ Each core practical should eventually support three levels:
 3. trainer reference output.
 
 The course should remain teachable even if a remote service or venue internet connection is temporarily unavailable.
+
+
+## Capstone
+
+The final Galičica group project reuses outputs from the six practicals rather than introducing a separate large analysis.
+
+See:
+
+- `group_project/README.md` — team questions and required outputs;
+- `group_project/presentation_template.md` — student briefing template;
+- `group_project/trainer_rubric.md` — trainer discussion rubric.
