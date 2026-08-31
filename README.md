@@ -108,13 +108,15 @@ The repository already includes the student-facing inputs needed for the core co
 
 Students do **not** need CDS credentials and should not run the ERA5-Land download script.
 
-## Resilience / offline mode
+## Resilience / fallback architecture
 
 The course uses three levels:
 
-1. live cloud/API workflow;
-2. committed local or cached fallback material;
-3. trainer reference output.
+1. **GEE live** — canonical cloud-EO backend;
+2. **CDSE openEO live** — independent backup when Earth Engine is unavailable but CDSE and internet access still work;
+3. **local/offline fallback** — committed datasets, reference tables, rendered outputs and static map captures.
+
+The openEO backup is under `fallback/openeo/`. It is intentionally compact rather than a second copy of all six practicals.
 
 See `fallback/README.md`.
 
