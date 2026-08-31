@@ -12,23 +12,17 @@ Python is the common analysis interface. The core practicals use Google Earth En
 
 ## Student workflow
 
-1. Clone or update the repository.
+1. Set up CDSE JupyterLab using `CDSE_SETUP.md`.
 2. Open `00_preflight.ipynb`.
 3. Run all cells.
 4. Resolve any **FAIL** items before the course.
 5. Work through `notebooks/01_...` to `06_...` in order.
 
-Student notebooks are written as **trainer-to-student course material**. They intentionally contain:
-
-- no trainer-specific Earth Engine project ID;
-- no saved execution outputs;
-- no hidden solution cells;
-- explicit interpretation and limitation prompts.
-
 ## Repository structure
 
 ```text
 00_preflight.ipynb        # CDSE/local environment and account checks
+CDSE_SETUP.md             # step-by-step CDSE JupyterLab setup
 SETUP_LOCAL.md            # Python 3.11 local fallback setup
 requirements.txt          # compatible top-level student dependencies
 requirements-lock.txt     # tested Python 3.11 lock
@@ -54,22 +48,11 @@ scripts/                  # setup, validation and data-preparation utilities
 
 ### CDSE JupyterLab
 
-Clone into persistent storage:
+Follow `CDSE_SETUP.md`.
 
-```bash
-cd ~/mystorage
-git clone https://github.com/andreydara/fire-school.git
-cd fire-school
-```
+Important: the CDSE `~/mystorage` filesystem is S3-backed. The tested course setup clones GitHub into `/tmp` first and copies the course files into persistent storage rather than keeping Git metadata inside `~/mystorage`.
 
-For an existing clone:
-
-```bash
-cd ~/mystorage/fire-school
-git pull
-```
-
-Then run `00_preflight.ipynb`.
+Then run `00_preflight.ipynb` in the **Python 3** kernel.
 
 ### Local fallback
 
