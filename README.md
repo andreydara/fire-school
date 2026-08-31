@@ -4,38 +4,55 @@ Hands-on materials for the GEO-ADAPT Summer School **Geospatial Information for 
 
 ## Course environment
 
-The primary hands-on environment is **Copernicus Data Space Ecosystem (CDSE) JupyterLab**. Python is the common analysis interface; exercises may use CDSE/openEO/STAC, Google Earth Engine, and other public services as backends. Near-real-time wildfire monitoring is taught separately by Kenneth using browser tools, Python, and QGIS.
+The primary hands-on environment is **Copernicus Data Space Ecosystem (CDSE) JupyterLab**.
+
+The supported local fallback is **Python 3.11 + `venv` + pip**. See `SETUP_LOCAL.md`.
+
+Python is the common analysis interface. The core practicals use Google Earth Engine for cloud EO processing and local course files for EFFIS and ERA5-Land analysis. Near-real-time wildfire monitoring can be taught separately with browser tools, Python and QGIS.
+
+## Student workflow
+
+1. Clone or update the repository.
+2. Open `00_preflight.ipynb`.
+3. Run all cells.
+4. Resolve any **FAIL** items before the course.
+5. Work through `notebooks/01_...` to `06_...` in order.
+
+Student notebooks are written as **trainer-to-student course material**. They intentionally contain:
+
+- no trainer-specific Earth Engine project ID;
+- no saved execution outputs;
+- no hidden solution cells;
+- explicit interpretation and limitation prompts.
 
 ## Repository structure
 
 ```text
-00_preflight.ipynb        # environment and account checks
-notebooks/                # student hands-on exercises
-data/                     # small shared/static inputs only
-fallback/                 # cached inputs for API/service outages
-group_project/            # Galičica capstone instructions/templates
-solutions/                # trainer/reference material
+00_preflight.ipynb        # CDSE/local environment and account checks
+SETUP_LOCAL.md            # Python 3.11 local fallback setup
+requirements.txt          # compatible top-level student dependencies
+requirements-lock.txt     # tested Python 3.11 lock
+requirements-optional.txt # non-core extensions
+notebooks/                # student practicals 01–06
+data/                     # committed static student inputs
+fallback/                 # outage/reference material
+group_project/            # Galičica capstone
+solutions/                # trainer-facing reference checks
+scripts/                  # setup, validation and data-preparation utilities
 ```
 
-Student notebooks:
+## Student notebooks
 
-1. `01_python_eo_intro.ipynb`
-2. `02_historical_fires.ipynb`
-3. `03_burned_area_severity.ipynb`
-4. `04_recovery.ipynb`
-5. `05_fire_weather_fuels.ipynb`
-6. `06_fire_susceptibility.ipynb`
+1. `01_python_eo_intro.ipynb` — Python/Jupyter + EO orientation
+2. `02_historical_fires.ipynb` — EFFIS fire history + annual NBR trajectory
+3. `03_burned_area_severity.ipynb` — Sentinel-2 dNBR burned area and severity
+4. `04_recovery.ipynb` — post-fire spectral recovery
+5. `05_fire_weather_fuels.ipynb` — ERA5-Land fire weather + vegetation/fuel-condition proxies
+6. `06_fire_susceptibility.ipynb` — interpretable landscape susceptibility
 
 ## Before the course
 
-1. Create/verify your CDSE account and request JupyterLab access.
-2. Verify Google Earth Engine access.
-3. Install QGIS LTR if requested by the trainers.
-4. Download this repository into persistent CDSE `~/mystorage`.
-5. Open `00_preflight.ipynb` and run all cells.
-6. Send the trainers the error text or a screenshot if the final summary contains any **FAIL** items.
-
-## Working in CDSE JupyterLab
+### CDSE JupyterLab
 
 Clone into persistent storage:
 
@@ -45,23 +62,67 @@ git clone https://github.com/andreydara/fire-school.git
 cd fire-school
 ```
 
-To get updates later:
+For an existing clone:
 
 ```bash
 cd ~/mystorage/fire-school
 git pull
 ```
 
-## Resilience principle
+Then run `00_preflight.ipynb`.
 
-Each core practical should eventually support three levels:
+### Local fallback
+
+Follow `SETUP_LOCAL.md`. The short version is:
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r requirements-lock.txt
+python scripts/check_environment.py
+```
+
+Windows PowerShell commands are documented in `SETUP_LOCAL.md`.
+
+## Earth Engine
+
+The notebooks do not use a trainer's private Google Cloud project.
+
+If Earth Engine requires an explicit registered project for a participant, set:
+
+```bash
+export GEE_PROJECT_ID="your-google-cloud-project-id"
+```
+
+before launching Jupyter. The preflight and all Earth Engine practicals use the same variable.
+
+## Course data
+
+The repository already includes the student-facing inputs needed for the core course:
+
+- canonical Galičica AOI;
+- Galičica EFFIS subset;
+- ERA5-Land hourly April–October 2024;
+- ERA5-Land April–October 1991–latest-2026 fire-season subset.
+
+Students do **not** need CDS credentials and should not run the ERA5-Land download script.
+
+## Resilience / offline mode
+
+The course uses three levels:
 
 1. live cloud/API workflow;
-2. cached-data fallback;
+2. committed local or cached fallback material;
 3. trainer reference output.
 
-The course should remain teachable even if a remote service or venue internet connection is temporarily unavailable.
+See `fallback/README.md`.
 
+Before travel, trainers should render reference HTML with:
+
+```bash
+python scripts/build_trainer_references.py
+```
 
 ## Capstone
 
@@ -69,6 +130,19 @@ The final Galičica group project reuses outputs from the six practicals rather 
 
 See:
 
-- `group_project/README.md` — team questions and required outputs;
-- `group_project/presentation_template.md` — student briefing template;
-- `group_project/trainer_rubric.md` — trainer discussion rubric.
+- `group_project/README.md`;
+- `group_project/presentation_template.md`;
+- `group_project/trainer_rubric.md`.
+
+## Trainer / repository QA
+
+From a tested trainer environment:
+
+```bash
+python scripts/check_environment.py
+python scripts/validate_course.py
+```
+
+The repository validator checks notebook JSON, Python cell syntax, clean execution state, trainer/student separation, Earth Engine configuration, NetCDF4 use and required files.
+
+See `TRAINER_CHECKLIST.md` for the final pre-travel checklist.
