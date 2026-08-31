@@ -252,8 +252,8 @@ def check_tables(expected: dict[str, pd.DataFrame]) -> None:
             failures.append(f"Missing {path.relative_to(ROOT)}")
             continue
 
-        actual = pd.read_csv(path)
-        expected_for_compare = expected_frame.copy()
+        actual = pd.read_csv(path).reset_index(drop=True)
+        expected_for_compare = expected_frame.reset_index(drop=True).copy()
 
         try:
             pd.testing.assert_frame_equal(
