@@ -16,9 +16,13 @@ Do **not** use openEO as the offline fallback. openEO still depends on CDSE serv
 
 ## Kernel
 
-In CDSE JupyterLab choose the dedicated **OpenEO** kernel.
+Run the fallback notebooks in the **same Python 3 kernel used for the canonical GEE notebooks**.
 
-Do not install `openeo` into the base kernel just to make these notebooks run.
+The fallback installs only the lightweight `openeo` Python client if it is missing. This is intentional: the course Python 3 kernel already contains the working geospatial stack used by the canonical notebooks.
+
+Do **not** install GeoPandas, Rasterio, xarray or other compiled geospatial packages into CDSE's dedicated OpenEO kernel for this course. That environment is useful for the official CDSE samples, but it does not contain the full course stack and ad-hoc geospatial installs can introduce binary-library mismatches.
+
+CDSE documents that pip-installed packages are removed when the JupyterLab instance is restarted, so the small `openeo` client may need to be reinstalled in a new session. The notebook bootstrap cell handles that automatically.
 
 ## Sequence
 
