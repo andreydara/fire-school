@@ -174,3 +174,21 @@ print("✓ No hard-coded trainer Earth Engine project")
 print("✓ Notebook 05 uses the NetCDF4 backend explicitly")
 print("✓ Sensitive/local files are ignored")
 print("\nCOURSE REPOSITORY VALIDATION PASSED")
+
+
+# The CDSE openEO live fallback must stay compatible with the canonical
+# Python 3 kernel and should not require Rasterio/rioxarray.
+for relative in OPENEO_NOTEBOOKS:
+    path = ROOT / relative
+    if path.exists():
+        text = path.read_text(encoding="utf-8")
+        if "import rasterio" in text or '"rasterio"' in text:
+            errors.append(
+                f"{relative}: openEO fallback should not require Rasterio; "
+                "use NetCDF + xarray instead."
+            )
+        if ".tif" in text or ".tiff" in text:
+            errors.append(
+                f"{relative}: openEO fallback should prefer NetCDF outputs "
+                "for compatibility with the canonical course kernel."
+            )
