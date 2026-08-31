@@ -76,8 +76,10 @@ python scripts/build_trainer_references.py
 Then:
 
 - [ ] open every file under `fallback/reference_html/`;
-- [ ] confirm maps, tables and figures render;
-- [ ] review for accidental credentials or personal paths;
+- [ ] confirm tables and static figures render;
+- [ ] remember that interactive web-map tiles may still need internet;
+- [ ] capture the key maps listed in `fallback/static/README.md` as static PNG/PDF files;
+- [ ] review all references for accidental credentials or personal paths;
 - [ ] keep a second copy outside the venue internet connection (trainer laptop / USB / shared offline folder).
 
 The committed EFFIS and weather tables under `fallback/tables/` are already available without APIs.
