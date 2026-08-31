@@ -77,7 +77,7 @@ def main():
         ]
         subprocess.run(cmd, cwd=ROOT, check=True)
 
-    print("\nReference HTML complete.")
+    print("\nReference HTML complete.")\n    print(\n        "Important: interactive Folium/Earth Engine tiles in HTML may still "\n        "require network access. Capture the key maps listed in "\n        "fallback/static/README.md before travel."\n    )
     print(
         "Open every exported file before travel. If the files are to be used "
         "as offline student fallback material, commit the reviewed HTML files "
