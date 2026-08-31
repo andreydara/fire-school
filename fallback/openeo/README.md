@@ -62,3 +62,25 @@ Current CDSE documentation used for these workflows:
 The live backup uses **NetCDF + xarray**, not GeoTIFF + Rasterio.
 
 This is deliberate: xarray and netCDF4 are already part of the canonical course environment, while Rasterio is optional in the current CDSE Python 3 image. CDSE's own openEO examples also use NetCDF downloads with xarray for inspection. This keeps the emergency path smaller and avoids installing compiled geospatial packages during class.
+
+
+## Runtime and caching
+
+A first live openEO request can take roughly several minutes because the processing happens on the CDSE backend. The fallback notebooks therefore:
+
+- use a smaller target-area extent than the canonical GEE notebooks where possible;
+- write live outputs to `~/mystorage/geo_adapt_openeo_cache/`;
+- reuse an existing cached result on later runs.
+
+This means the first emergency run may still be slower than GEE, but repeated runs in the same CDSE account should be much faster.
+
+## Display scaling
+
+Spectral indices are checked against their physically plausible ranges before display:
+
+- NDVI / NDMI / NBR: `[-1, 1]`;
+- dNBR: `[-2, 2]`.
+
+Finite values outside those ranges are reported and excluded from the display stretch. Each map is then stretched to the minimum and maximum of the remaining valid values.
+
+This avoids a few extreme backend/export values flattening the colour scale for the rest of the map.
