@@ -46,3 +46,5 @@ jobs:
             git commit -m "Add tested Python 3.11 course lock"
             git push
           fi
+
+# rerun after course hardening
