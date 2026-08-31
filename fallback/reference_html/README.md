@@ -1,0 +1,1 @@
+# Trainer-generated reference HTML\n\nRender reviewed offline references here with `python scripts/build_trainer_references.py`.\n
