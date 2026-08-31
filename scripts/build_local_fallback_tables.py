@@ -211,6 +211,7 @@ def build_tables() -> dict[str, pd.DataFrame]:
         .sort_values(["compound_flags", "time"], ascending=[False, True])
         .loc[:, keep]
         .head(15)
+        .reset_index(drop=True)
         .copy()
     )
 
