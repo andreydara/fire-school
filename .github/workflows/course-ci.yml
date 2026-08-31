@@ -28,5 +28,8 @@ jobs:
       - name: Check local course environment
         run: python scripts/check_environment.py
 
+      - name: Verify committed fallback tables
+        run: python scripts/build_local_fallback_tables.py --check
+
       - name: Validate course repository
         run: python scripts/validate_course.py
