@@ -18,9 +18,9 @@ Do **not** use openEO as the offline fallback. openEO still depends on CDSE serv
 
 Run the fallback notebooks in the **same Python 3 kernel used for the canonical GEE notebooks**.
 
-The fallback installs only the lightweight `openeo` Python client if it is missing. This is intentional: the course Python 3 kernel already contains the working geospatial stack used by the canonical notebooks.
+The fallback installs only the lightweight `openeo` Python client if it is missing. This is intentional: the course Python 3 kernel already contains the core stack used here — GeoPandas, NumPy, Matplotlib, xarray and netCDF4.
 
-Do **not** install GeoPandas, Rasterio, xarray or other compiled geospatial packages into CDSE's dedicated OpenEO kernel for this course. That environment is useful for the official CDSE samples, but it does not contain the full course stack and ad-hoc geospatial installs can introduce binary-library mismatches.
+Do **not** install GeoPandas, Rasterio, rioxarray or other compiled geospatial packages into CDSE's dedicated OpenEO kernel for this course. That environment is useful for the official CDSE samples, but it does not contain the full course stack and ad-hoc geospatial installs can introduce binary-library mismatches.
 
 CDSE documents that pip-installed packages are removed when the JupyterLab instance is restarted, so the small `openeo` client may need to be reinstalled in a new session. The notebook bootstrap cell handles that automatically.
 
@@ -55,3 +55,10 @@ Current CDSE documentation used for these workflows:
 - `aggregate_temporal` and `aggregate_spatial`;
 - `ESA_WORLDCOVER_10M_2021_V2`;
 - `COPERNICUS_30` with native `slope` and `aspect` processes.
+
+
+## Output format
+
+The live backup uses **NetCDF + xarray**, not GeoTIFF + Rasterio.
+
+This is deliberate: xarray and netCDF4 are already part of the canonical course environment, while Rasterio is optional in the current CDSE Python 3 image. CDSE's own openEO examples also use NetCDF downloads with xarray for inspection. This keeps the emergency path smaller and avoids installing compiled geospatial packages during class.
