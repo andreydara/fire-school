@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import ast
 import json
 import re
 import sys
@@ -100,6 +101,35 @@ for relative in NOTEBOOKS:
             if cell.get("outputs"):
                 errors.append(f"{relative}: code cell {idx} has saved outputs")
 
+            source = cell.get("source", "")
+            if isinstance(source, list):
+                source = "".join(source)
+
+            # Core notebooks currently use plain Python rather than cell magics.
+            # Parse each code cell to catch syntax damage introduced by edits.
+            try:
+                ast.parse(source or "")
+            except SyntaxError as exc:
+                errors.append(
+                    f"{relative}: syntax error in code cell {idx}: "
+                    f"{exc.msg} (line {exc.lineno})"
+                )
+
+    if relative.parent.name == "notebooks":
+        has_working_method = any(
+            "How to work with this notebook" in (
+                "".join(cell.get("source", []))
+                if isinstance(cell.get("source", []), list)
+                else str(cell.get("source", ""))
+            )
+            for cell in cells
+            if cell.get("cell_type") == "markdown"
+        )
+        if not has_working_method:
+            errors.append(
+                f"{relative}: missing student-facing 'How to work with this notebook' guidance"
+            )
+
 # Prevent accidental reintroduction of a trainer-specific EE project.
 for relative in NOTEBOOKS:
     path = ROOT / relative
@@ -130,7 +160,7 @@ if errors:
     raise SystemExit(1)
 
 print("✓ Required files present")
-print("✓ Notebook JSON valid")
+print("✓ Notebook JSON and Python cell syntax valid")
 print("✓ Student notebooks contain no saved outputs")
 print("✓ No trainer/private assistant conversation leakage detected")
 print("✓ No hard-coded trainer Earth Engine project")
