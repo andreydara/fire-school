@@ -23,6 +23,13 @@ NOTEBOOKS = [
     ]],
 ]
 
+OPENEO_NOTEBOOKS = [
+    Path("fallback/openeo/00_openeo_smoke_test.ipynb"),
+    Path("fallback/openeo/01_03_05_s2_core.ipynb"),
+    Path("fallback/openeo/04_recovery_timeseries.ipynb"),
+    Path("fallback/openeo/06_susceptibility_predictors.ipynb"),
+]
+
 REQUIRED_FILES = [
     Path("README.md"),
     Path("SETUP_LOCAL.md"),
@@ -61,7 +68,7 @@ for relative in REQUIRED_FILES:
     if not path.exists() or path.stat().st_size == 0:
         errors.append(f"Missing required file: {relative}")
 
-for relative in NOTEBOOKS:
+for relative in NOTEBOOKS + OPENEO_NOTEBOOKS:
     path = ROOT / relative
     if not path.exists():
         errors.append(f"Missing notebook: {relative}")
@@ -131,7 +138,7 @@ for relative in NOTEBOOKS:
             )
 
 # Prevent accidental reintroduction of a trainer-specific EE project.
-for relative in NOTEBOOKS:
+for relative in NOTEBOOKS + OPENEO_NOTEBOOKS:
     path = ROOT / relative
     if path.exists() and "ee-andreydara" in path.read_text(encoding="utf-8"):
         errors.append(f"{relative}: hard-coded trainer Earth Engine project")
@@ -160,7 +167,7 @@ if errors:
     raise SystemExit(1)
 
 print("✓ Required files present")
-print("✓ Notebook JSON and Python cell syntax valid")
+print("✓ Core and openEO fallback notebook JSON/Python syntax valid")
 print("✓ Student notebooks contain no saved outputs")
 print("✓ No trainer/private assistant conversation leakage detected")
 print("✓ No hard-coded trainer Earth Engine project")
