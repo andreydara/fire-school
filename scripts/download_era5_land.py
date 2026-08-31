@@ -122,7 +122,7 @@ def open_download(path: Path) -> xr.Dataset:
                     f"Archive contents: {contents}"
                 )
 
-            opened = [normalize_time(xr.open_dataset(p)) for p in nc_files]
+            opened = [normalize_time(xr.open_dataset(p, engine="netcdf4")) for p in nc_files]
             try:
                 if len(opened) == 1:
                     ds = opened[0].load()
@@ -130,6 +130,7 @@ def open_download(path: Path) -> xr.Dataset:
                     try:
                         ds = xr.combine_by_coords(
                             opened,
+                            compat="override",
                             combine_attrs="override",
                             join="outer",
                         ).load()
@@ -283,7 +284,7 @@ def dataset_time_bounds(path: Path) -> tuple[np.datetime64, np.datetime64] | Non
     if not path.exists():
         return None
     try:
-        with xr.open_dataset(path) as ds:
+        with xr.open_dataset(path, engine="netcdf4") as ds:
             ds = normalize_time(ds)
             if "time" not in ds.coords or ds.time.size == 0:
                 return None
