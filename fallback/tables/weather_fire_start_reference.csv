@@ -1,0 +1,6 @@
+date,metric,value,unit,august_1991_2020_percentile,interpretation
+2024-08-06,12 UTC temperature,26.539,degC,71.4,high = more fire-conducive
+2024-08-06,12 UTC relative humidity,32.876,%,29.0,low = more fire-conducive
+2024-08-06,12 UTC wind speed,1.478,m/s,52.7,high = more fire-conducive
+2024-08-06,Shallow soil moisture,0.181,m3/m3,22.7,low = drier surface
+2024-08-06,Previous 30-day precipitation,14.365,mm,20.4,low = drier antecedent period
