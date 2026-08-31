@@ -8,3 +8,7 @@ cache/
 
 data/weather/_tmp/
 *.part
+.venv/
+.cdsapirc
+.pytest_cache/
+*.pyc
