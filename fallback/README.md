@@ -12,7 +12,7 @@ Students should switch to fallback material only when instructed by a trainer.
 
 ## CDSE openEO live backup
 
-If Earth Engine is unavailable but CDSE JupyterLab and internet access are working, use the dedicated **OpenEO** kernel and the notebooks under `fallback/openeo/`.
+If Earth Engine is unavailable but CDSE JupyterLab and internet access are working, use the notebooks under `fallback/openeo/` in the same **Python 3 course kernel** used for the GEE practicals. The notebooks install the lightweight `openeo` client when necessary.
 
 This provides an independent Google-free live path for the Sentinel-2, recovery and susceptibility-predictor parts of the course.
 
