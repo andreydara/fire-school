@@ -9,4 +9,16 @@ Hands-on sequence:
 5. `05_fire_weather_fuels.ipynb` — ERA5-Land fire weather + Sentinel-2 vegetation/fuel-condition proxies
 6. `06_fire_susceptibility.ipynb` — interpretable weighted-overlay landscape susceptibility + EFFIS plausibility and sensitivity checks
 
-Each notebook includes a core workflow for everyone and optional stretch tasks.
+## Student-facing design
+
+Every notebook is written as trainer-to-student material:
+
+- run the core workflow from top to bottom;
+- pause at interpretation questions;
+- change selected parameters rather than rewriting the analysis from scratch;
+- keep uncertainty and management relevance visible;
+- use stretch tasks only after the core workflow is complete.
+
+The distributed notebooks contain no saved execution outputs and no trainer-specific Earth Engine project ID.
+
+If a live backend fails during class, tell a trainer and use the fallback/reference material rather than spending the practical debugging infrastructure.
