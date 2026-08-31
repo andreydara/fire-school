@@ -48,7 +48,9 @@ python scripts/build_trainer_references.py
 
 The script writes rendered notebooks under `fallback/reference_html/`.
 
-Those files allow the class to continue with interpretation, uncertainty and management exercises even if the live EO backend is temporarily unavailable.
+Rendered HTML preserves text, tables and static plots, but **interactive Folium/Earth Engine map tiles may still require network access**. For a true venue-internet outage, trainers should also capture the key map views listed in `fallback/static/README.md` as static PNG/PDF images before travel.
+
+Together, the HTML references and static map captures allow the class to continue with interpretation, uncertainty and management exercises even if the live EO backend is unavailable.
 
 ## Fallback teaching rule
 
