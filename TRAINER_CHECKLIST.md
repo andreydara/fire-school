@@ -54,7 +54,7 @@ Do not discover the project/IAM model during the first practical.
 
 ## 5. CDSE openEO live backup
 
-In the dedicated **OpenEO** kernel:
+In the same **Python 3 course kernel** used for the canonical GEE notebooks:
 
 - [ ] run `fallback/openeo/00_openeo_smoke_test.ipynb`;
 - [ ] confirm Sentinel-2, WorldCover and Copernicus DEM collections are available;
@@ -64,7 +64,7 @@ In the dedicated **OpenEO** kernel:
 - [ ] run `06_susceptibility_predictors.ipynb` once;
 - [ ] record typical runtime and whether any job-credit limits are encountered.
 
-Do not install `openeo` into the base CDSE kernel solely for this backup; use the dedicated OpenEO environment.
+Allow the fallback bootstrap cell to install only `openeo` when it is missing. Do not install the full compiled geospatial stack into the dedicated OpenEO environment.
 
 ## 6. Execute every student notebook
 
