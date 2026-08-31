@@ -1,0 +1,7 @@
+# Optional course extensions.
+# These are not required for the six core student notebooks.
+
+geemap>=0.35,<1
+rasterio>=1.4,<2
+rioxarray>=0.18,<1
+scikit-learn>=1.5,<2
