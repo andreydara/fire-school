@@ -52,7 +52,21 @@ Before the course:
 
 Do not discover the project/IAM model during the first practical.
 
-## 5. Execute every student notebook
+## 5. CDSE openEO live backup
+
+In the dedicated **OpenEO** kernel:
+
+- [ ] run `fallback/openeo/00_openeo_smoke_test.ipynb`;
+- [ ] confirm Sentinel-2, WorldCover and Copernicus DEM collections are available;
+- [ ] confirm `to_scl_dilation_mask`, `slope` and `aspect` processes are available;
+- [ ] run `01_03_05_s2_core.ipynb` once;
+- [ ] run `04_recovery_timeseries.ipynb` once;
+- [ ] run `06_susceptibility_predictors.ipynb` once;
+- [ ] record typical runtime and whether any job-credit limits are encountered.
+
+Do not install `openeo` into the base CDSE kernel solely for this backup; use the dedicated OpenEO environment.
+
+## 6. Execute every student notebook
 
 From a trainer account:
 
@@ -65,7 +79,7 @@ From a trainer account:
 
 Compare with `solutions/reference_checks.md`.
 
-## 6. Offline/reference pack
+## 7. Offline/reference pack
 
 Generate rendered references:
 
@@ -84,7 +98,7 @@ Then:
 
 The committed EFFIS and weather tables under `fallback/tables/` are already available without APIs.
 
-## 7. Capstone
+## 8. Capstone
 
 - [ ] five team tasks are understandable without trainer explanation;
 - [ ] presentation template is available;
@@ -92,7 +106,7 @@ The committed EFFIS and weather tables under `fallback/tables/` are already avai
 - [ ] presentation timing fits the final schedule;
 - [ ] team sizes are assigned or easy to assign on the day.
 
-## 8. Final release
+## 9. Final release
 
 After the final successful test:
 
