@@ -1,0 +1,8 @@
+# Trainer/development environment.
+-r requirements.txt
+-r requirements-optional.txt
+
+cdsapi>=0.7,<1
+nbclient>=0.10,<1
+nbformat>=5.10,<6
+pip-tools>=7.4,<8
