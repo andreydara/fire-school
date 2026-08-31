@@ -22,10 +22,13 @@ CORE_IMPORTS = {
     "netCDF4": "netCDF4",
     "ee": "Earth Engine Python API",
     "requests": "Requests",
-    "pystac_client": "pystac-client",
-    "openeo": "openEO client",
     "IPython": "IPython",
     "ipykernel": "ipykernel",
+}
+
+OPTIONAL_IMPORTS = {
+    "pystac_client": "pystac-client",
+    "openeo": "openEO client",
 }
 
 REQUIRED_FILES = [
@@ -58,6 +61,14 @@ for import_name, display_name in CORE_IMPORTS.items():
     except Exception as exc:
         errors.append(f"{display_name}: {type(exc).__name__}: {exc}")
         print(f"✗ {display_name}: {exc}")
+
+for import_name, display_name in OPTIONAL_IMPORTS.items():
+    try:
+        module = importlib.import_module(import_name)
+        version = getattr(module, "__version__", "version unavailable")
+        print(f"! Optional {display_name}: {version}")
+    except Exception:
+        print(f"! Optional {display_name}: not installed")
 
 print("\nCourse files")
 for relative in REQUIRED_FILES:
