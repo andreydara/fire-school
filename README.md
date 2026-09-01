@@ -24,7 +24,8 @@ Python is the common analysis interface. The core practicals use Google Earth En
 00_preflight.ipynb        # CDSE/local environment and account checks
 CDSE_SETUP.md             # step-by-step CDSE JupyterLab setup
 SETUP_LOCAL.md            # Python 3.11 local fallback setup
-requirements.txt          # compatible top-level student dependencies
+requirements.txt          # local Python 3.11 environment
+requirements-cdse.txt     # packages added to the CDSE Python 3 kernel
 requirements-lock.txt     # tested Python 3.11 lock
 requirements-optional.txt # non-core extensions
 notebooks/                # student practicals 01–06
@@ -58,13 +59,21 @@ git clone https://github.com/andreydara/fire-school.git
 cd fire-school
 ```
 
-For later updates:
+Install the course packages into the managed Python environment:
+
+```bash
+python -m pip install -r requirements-cdse.txt
+```
+
+Then use the **Python 3** kernel and run `00_preflight.ipynb`.
+
+For later repository updates:
 
 ```bash
 git pull --ff-only
 ```
 
-Then run `00_preflight.ipynb` in the **Python 3** kernel.
+If a later CDSE session reports missing core packages, rerun the pip command above and restart the Python 3 kernel.
 
 ### Local fallback
 
