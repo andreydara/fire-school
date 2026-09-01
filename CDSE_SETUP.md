@@ -25,29 +25,27 @@ The terminal prompt should look similar to:
 jovyan@jupyter-...:~$
 ```
 
-## 3. Download the course repository
+## 3. Clone the course repository
 
-Do **not** keep the Git repository itself inside `~/mystorage`.
-
-The CDSE persistent storage is S3-backed and Git pack-file operations can fail there. Clone into the temporary local filesystem first:
+Use the normal Git workflow directly in persistent storage:
 
 ```bash
-cd /tmp
-rm -rf fire-school-source
-git clone --depth 1 https://github.com/andreydara/fire-school.git fire-school-source
+cd ~/mystorage
+git clone https://github.com/andreydara/fire-school.git
+cd fire-school
 ```
 
-Then copy the course files into persistent storage:
+If the repository already exists:
 
 ```bash
-mkdir -p ~/mystorage/fire-school
-cp -a /tmp/fire-school-source/. ~/mystorage/fire-school/
-rm -rf ~/mystorage/fire-school/.git
+cd ~/mystorage/fire-school
+git status
+git pull --ff-only
 ```
 
-The last command removes Git metadata from the persistent copy. The notebooks and data remain.
+Before updating, save or commit any notebook changes you want to keep.
 
-## 4. Open the persistent course folder
+## 4. Open the course folder
 
 In the JupyterLab file browser, navigate to:
 
@@ -133,11 +131,9 @@ Run the core cells from top to bottom.
 
 ## 9. openEO live backup
 
-Use the openEO fallback only if the trainer asks the class to switch because Earth Engine is unavailable.
+Use the openEO fallback only if the class switches because Earth Engine is unavailable.
 
-Keep the **Python 3** kernel.
-
-Open:
+Keep the **Python 3** kernel and open:
 
 ```text
 fallback/openeo/
@@ -157,24 +153,67 @@ so repeated runs are much faster.
 
 ## 10. Updating the course files
 
-Because the persistent copy intentionally contains no `.git` directory, do not run `git pull` inside `~/mystorage/fire-school`.
-
-To refresh from GitHub:
+Use normal Git commands:
 
 ```bash
-cd /tmp
-rm -rf fire-school-source
-git clone --depth 1 https://github.com/andreydara/fire-school.git fire-school-source
-
-cp -a /tmp/fire-school-source/. ~/mystorage/fire-school/
-rm -rf ~/mystorage/fire-school/.git
+cd ~/mystorage/fire-school
+git status
+git pull --ff-only
 ```
 
-This overlays the newest course files while keeping the persistent folder.
+If `git status` shows local notebook changes, save, commit or copy them before pulling.
 
-If you have made important personal changes to a notebook, save a copy under a different filename before refreshing.
+## 11. Temporary weather files
 
-## 11. What is persistent?
+The two final ERA5-Land NetCDF files are committed to the repository. Intermediate CDS chunks are not.
+
+Temporary preparation files belong under:
+
+```text
+data/weather/_tmp/
+```
+
+and partial writes use:
+
+```text
+*.part
+```
+
+Both are ignored by Git. Do not force-add them to the repository.
+
+Students do not need to run `scripts/download_era5_land.py`.
+
+## 12. If Git reports a pack-file error
+
+Normal clone/fetch/pull in `~/mystorage` has been tested successfully. If Git nevertheless reports an error such as:
+
+```text
+Failed to checksum '.git/objects/pack/tmp_pack_...'
+fetch-pack: invalid index-pack output
+```
+
+first check the repository state:
+
+```bash
+git status
+git fsck --full
+git ls-files data/weather/_tmp
+git ls-files '*.part'
+```
+
+The last two commands should return nothing.
+
+If the repository is clean, retry:
+
+```bash
+rm -f .git/objects/pack/tmp_pack_*
+git fetch origin
+git pull --ff-only
+```
+
+If the same error persists, use a fresh clone as a recovery step rather than as the normal course workflow.
+
+## 13. What is persistent?
 
 Persistent:
 
@@ -192,7 +231,7 @@ the current Jupyter session
 
 Therefore keep notebooks, outputs and personal work under `~/mystorage`.
 
-## 12. If something fails
+## 14. If something else fails
 
 When asking for help, provide:
 
@@ -200,4 +239,4 @@ When asking for help, provide:
 - the notebook and cell number;
 - whether you are using the **Python 3** kernel;
 - the final preflight summary;
-- whether the failure concerns Earth Engine, openEO, local course data or JupyterLab itself.
+- whether the failure concerns Earth Engine, openEO, local course data, Git or JupyterLab itself.
