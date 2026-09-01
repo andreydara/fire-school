@@ -35,5 +35,3 @@ The course uses 12 UTC as a consistent daily comparison time. This is not claime
 Copernicus Climate Change Service / ECMWF ERA5-Land.
 
 The preparation script is `scripts/download_era5_land.py`.
-
-Do not commit `data/weather/_tmp/`; it contains restartable CDS download chunks rather than student-facing course data.
