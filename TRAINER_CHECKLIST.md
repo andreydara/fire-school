@@ -35,6 +35,8 @@ Test from a participant-like CDSE account:
 - [ ] normal `git fetch` / `git pull --ff-only` work there;
 - [ ] `git ls-files data/weather/_tmp` returns nothing;
 - [ ] `git ls-files '*.part'` returns nothing;
+- [ ] `python -m pip install -r requirements-cdse.txt` succeeds in a fresh standard Python environment;
+- [ ] the Python 3 kernel is restarted after installation;
 - [ ] the update procedure in `CDSE_SETUP.md` works;
 - [ ] preflight identifies writable persistent storage;
 - [ ] core packages import;
