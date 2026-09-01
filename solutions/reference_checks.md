@@ -91,13 +91,3 @@ Structural checks:
 - alternative weight sets visibly change at least some locations.
 
 Do not require the EFFIS footprints to fall predominantly in the highest class. That comparison is a plausibility test, not a fitted validation target.
-
-## Capstone
-
-The trainer should challenge any statement that upgrades:
-
-- dNBR class → ecological truth;
-- NDMI/NDVI → direct fuel load;
-- weather stress → ignition cause or probability;
-- susceptibility → risk;
-- spectral greening → complete ecological recovery.

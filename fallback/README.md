@@ -42,31 +42,10 @@ Therefore:
 - `weather_compound_top_2024.csv`;
 - `weather_recent_2026.csv`.
 
-These tables reproduce the local-data logic used in the student notebooks. They are not separate scientific products.
+These tables reproduce the local-data logic used in the student notebooks.
 
 ## Earth Engine outage
 
 Practicals 01, 03, 04 and 06, and the Sentinel-2 section of Practical 05, require a live Earth Engine session for the full workflow.
 
-Before travel, a trainer should create reference HTML outputs with:
-
-```bash
-python scripts/build_trainer_references.py
-```
-
-The script writes rendered notebooks under `fallback/reference_html/`.
-
-Rendered HTML preserves text, tables and static plots, but **interactive Folium/Earth Engine map tiles may still require network access**. For a true venue-internet outage, trainers should also capture the key map views listed in `fallback/static/README.md` as static PNG/PDF images before travel.
-
 Together, the HTML references and static map captures allow the class to continue with interpretation, uncertainty and management exercises even if the live EO backend is unavailable.
-
-## Fallback teaching rule
-
-If a live service fails during class:
-
-- allow a short retry;
-- do not spend the practical debugging infrastructure;
-- move to the corresponding local/reference output;
-- keep the same interpretation questions and conceptual learning objective.
-
-Fallback mode should change the **data-delivery mechanism**, not the analytical logic.

@@ -1,6 +1,6 @@
 # Trainer pre-travel checklist
 
-Use this checklist after the analytical notebooks are stable and before distributing the final course release.
+Checklist for after the analytical notebooks are stable and before distributing the final course release.
 
 ## 1. Repository state
 
@@ -18,7 +18,7 @@ Test from a **fresh Python 3.11 virtual environment**, not the development envir
 python3.11 -m venv .venv-test
 source .venv-test/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r requirements-lock.txt
+python -m pip install -r requirements.txt
 python scripts/check_environment.py
 ```
 
@@ -31,8 +31,9 @@ On Windows, repeat at least once with the PowerShell setup from `SETUP_LOCAL.md`
 
 Test from a participant-like CDSE account:
 
-- [ ] repository clones under `~/mystorage`;
-- [ ] `git pull` works;
+- [ ] the repository clones successfully under `/tmp`;
+- [ ] course files copy successfully to `~/mystorage/fire-school` without Git metadata;
+- [ ] the refresh procedure in `CDSE_SETUP.md` works;
 - [ ] preflight identifies writable persistent storage;
 - [ ] core packages import;
 - [ ] local weather datasets open;
@@ -102,7 +103,6 @@ The committed EFFIS and weather tables under `fallback/tables/` are already avai
 
 - [ ] five team tasks are understandable without trainer explanation;
 - [ ] presentation template is available;
-- [ ] trainer rubric is available;
 - [ ] presentation timing fits the final schedule;
 - [ ] team sizes are assigned or easy to assign on the day.
 

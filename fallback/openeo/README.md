@@ -2,8 +2,6 @@
 
 These notebooks provide a **secondary live EO backend** for the course when Google Earth Engine is unavailable because of authentication, project/IAM, quota or service problems.
 
-They are not a second version of the course. The six notebooks under `notebooks/` remain canonical.
-
 ## When to use this backup
 
 Use openEO when:
@@ -22,8 +20,6 @@ The fallback installs only the lightweight `openeo` Python client if it is missi
 
 Do **not** install GeoPandas, Rasterio, rioxarray or other compiled geospatial packages into CDSE's dedicated OpenEO kernel for this course. That environment is useful for the official CDSE samples, but it does not contain the full course stack and ad-hoc geospatial installs can introduce binary-library mismatches.
 
-CDSE documents that pip-installed packages are removed when the JupyterLab instance is restarted, so the small `openeo` client may need to be reinstalled in a new session. The notebook bootstrap cell handles that automatically.
-
 ## Sequence
 
 1. `00_openeo_smoke_test.ipynb` — connection, authentication, collections and processes.
@@ -33,7 +29,7 @@ CDSE documents that pip-installed packages are removed when the JupyterLab insta
 
 Practical 02 does not need an openEO replacement because the EFFIS archive is already committed locally.
 
-## Deliberate differences from the GEE workflow
+## Differences from the GEE workflow
 
 The openEO backup is optimized for resilience and teaching continuity:
 
@@ -41,8 +37,6 @@ The openEO backup is optimized for resilience and teaching continuity:
 - it uses CDSE's standard `to_scl_dilation_mask` process for Sentinel-2 cloud masking;
 - exact pixel counts and summary values can therefore differ slightly from the canonical GEE notebooks;
 - the interpretation questions and scientific concepts should remain the same.
-
-Do not present differences between GEE and openEO as errors unless the difference changes the scientific conclusion.
 
 ## Cost/performance principle
 
@@ -55,13 +49,6 @@ Current CDSE documentation used for these workflows:
 - `aggregate_temporal` and `aggregate_spatial`;
 - `ESA_WORLDCOVER_10M_2021_V2`;
 - `COPERNICUS_30` with native `slope` and `aspect` processes.
-
-
-## Output format
-
-The live backup uses **NetCDF + xarray**, not GeoTIFF + Rasterio.
-
-This is deliberate: xarray and netCDF4 are already part of the canonical course environment, while Rasterio is optional in the current CDSE Python 3 image. CDSE's own openEO examples also use NetCDF downloads with xarray for inspection. This keeps the emergency path smaller and avoids installing compiled geospatial packages during class.
 
 
 ## Runtime and caching

@@ -1,5 +1,5 @@
 # Core student environment for GEO-ADAPT Wildfire Summer School 2026
-# Python 3.11 is the canonical interpreter.
+# Python 3.11 is the required interpreter.
 #
 # Install the tested lock when available:
 #   python -m pip install -r requirements-lock.txt

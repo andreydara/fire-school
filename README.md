@@ -31,7 +31,7 @@ notebooks/                # student practicals 01–06
 data/                     # committed static student inputs
 fallback/                 # outage/reference material
 group_project/            # Galičica capstone
-solutions/                # trainer-facing reference checks
+solutions/                # reference checks
 scripts/                  # setup, validation and data-preparation utilities
 ```
 
@@ -62,15 +62,13 @@ Follow `SETUP_LOCAL.md`. The short version is:
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
-python -m pip install -r requirements-lock.txt
+python -m pip install -r requirements.txt
 python scripts/check_environment.py
 ```
 
 Windows PowerShell commands are documented in `SETUP_LOCAL.md`.
 
 ## Earth Engine
-
-The notebooks do not use a trainer's private Google Cloud project.
 
 If Earth Engine requires an explicit registered project for a participant, set:
 
@@ -103,12 +101,6 @@ The openEO backup is under `fallback/openeo/`. It is intentionally compact rathe
 
 See `fallback/README.md`.
 
-Before travel, trainers should render reference HTML with:
-
-```bash
-python scripts/build_trainer_references.py
-```
-
 ## Capstone
 
 The final Galičica group project reuses outputs from the six practicals rather than introducing a separate large analysis.
@@ -116,18 +108,5 @@ The final Galičica group project reuses outputs from the six practicals rather 
 See:
 
 - `group_project/README.md`;
-- `group_project/presentation_template.md`;
-- `group_project/trainer_rubric.md`.
+- `group_project/presentation_template.md`.
 
-## Trainer / repository QA
-
-From a tested trainer environment:
-
-```bash
-python scripts/check_environment.py
-python scripts/validate_course.py
-```
-
-The repository validator checks notebook JSON, Python cell syntax, clean execution state, trainer/student separation, Earth Engine configuration, NetCDF4 use and required files.
-
-See `TRAINER_CHECKLIST.md` for the final pre-travel checklist.
