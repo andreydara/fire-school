@@ -31,9 +31,11 @@ On Windows, repeat at least once with the PowerShell setup from `SETUP_LOCAL.md`
 
 Test from a participant-like CDSE account:
 
-- [ ] the repository clones successfully under `/tmp`;
-- [ ] course files copy successfully to `~/mystorage/fire-school` without Git metadata;
-- [ ] the refresh procedure in `CDSE_SETUP.md` works;
+- [ ] the repository clones directly under `~/mystorage/fire-school`;
+- [ ] normal `git fetch` / `git pull --ff-only` work there;
+- [ ] `git ls-files data/weather/_tmp` returns nothing;
+- [ ] `git ls-files '*.part'` returns nothing;
+- [ ] the update procedure in `CDSE_SETUP.md` works;
 - [ ] preflight identifies writable persistent storage;
 - [ ] core packages import;
 - [ ] local weather datasets open;
