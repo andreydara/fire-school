@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import ast
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -131,9 +132,25 @@ if nb5.exists():
         )
 
 gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
-for entry in [".venv/", ".cdsapirc", "data/weather/_tmp/"]:
+for entry in [".venv/", ".cdsapirc", "data/weather/_tmp/", "*.part"]:
     if entry not in gitignore:
         errors.append(f".gitignore should include {entry}")
+
+# Intermediate weather downloads must never be tracked. They previously
+# caused unnecessary repository churn and can make Git updates much heavier.
+if (ROOT / ".git").exists():
+    tracked_tmp = subprocess.run(
+        ["git", "ls-files", "data/weather/_tmp", "*.part"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if tracked_tmp:
+        errors.append(
+            "Temporary weather files are tracked by Git: "
+            + ", ".join(tracked_tmp.splitlines())
+        )
 
 # The CDSE openEO live fallback must stay compatible with the canonical
 # Python 3 kernel and should not require Rasterio/rioxarray.
@@ -167,5 +184,5 @@ print("✓ Core and openEO fallback notebook JSON/Python syntax valid")
 print("✓ Student notebooks contain no saved outputs")
 print("✓ No hard-coded trainer Earth Engine project")
 print("✓ Notebook 05 uses the NetCDF4 backend explicitly")
-print("✓ Sensitive/local files are ignored")
+print("✓ Sensitive/local and temporary weather files are ignored")
 print("\nCOURSE REPOSITORY VALIDATION PASSED")
