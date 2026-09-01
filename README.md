@@ -50,7 +50,19 @@ scripts/                  # setup, validation and data-preparation utilities
 
 Follow `CDSE_SETUP.md`.
 
-Important: the CDSE `~/mystorage` filesystem is S3-backed. The tested course setup clones GitHub into `/tmp` first and copies the course files into persistent storage rather than keeping Git metadata inside `~/mystorage`.
+Clone the repository directly into persistent storage and use normal Git commands there:
+
+```bash
+cd ~/mystorage
+git clone https://github.com/andreydara/fire-school.git
+cd fire-school
+```
+
+For later updates:
+
+```bash
+git pull --ff-only
+```
 
 Then run `00_preflight.ipynb` in the **Python 3** kernel.
 
