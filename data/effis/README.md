@@ -1,10 +1,8 @@
 # EFFIS reference data
 
-The course uses one canonical EFFIS burned-area dataset:
+The course uses one EFFIS burned-area dataset:
 
 `data/effis/Galicica.gpkg`
-
-It is committed directly to this repository, so students do **not** need access to Google Drive or any separate download.
 
 ## Dataset
 
@@ -15,7 +13,5 @@ It is committed directly to this repository, so students do **not** need access 
 - Years represented: 2017–2025
 - Size: ~0.3 MB
 - Key attributes: `FIREDATE`, `FINALDATE`, `COUNTRY`, `PROVINCE`, `COMMUNE`, `AREA_HA`, land-cover fractions, `PERCNA2K`, and `CLASS`
-
-The much larger Balkans-wide EFFIS subset is intentionally **not** part of the student repository.
 
 For the August 2024 case study, notebooks 02 and 03 filter this archive to the relevant event period and use EFFIS polygon `240575` as the main Ohrid-side reference polygon.
