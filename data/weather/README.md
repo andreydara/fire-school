@@ -35,3 +35,10 @@ The course uses 12 UTC as a consistent daily comparison time. This is not claime
 Copernicus Climate Change Service / ECMWF ERA5-Land.
 
 The preparation script is `scripts/download_era5_land.py`.
+
+
+## Temporary preparation files
+
+The ERA5-Land preparation script uses `data/weather/_tmp/` for restartable intermediate CDS downloads and `*.part` for atomic writes.
+
+These files are intentionally excluded by `.gitignore` and must not be committed. Only the final course NetCDF files listed above belong in Git.
