@@ -12,7 +12,7 @@ The class works in five teams. With about 30 participants, this gives roughly 5â
 
 ## Shared rules
 
-Each team should:
+Each team can:
 
 - reuse results already produced in the practicals;
 - check that every claim is supported by a map, graph, table or clearly identified external source;
