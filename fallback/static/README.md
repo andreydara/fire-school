@@ -1,8 +1,8 @@
 # Static offline map captures
 
-Interactive Folium/Earth Engine maps embedded in rendered HTML may still request web tiles. For a **true venue-internet outage**, capture the following views as static PNG or PDF files after the final successful trainer run.
+Interactive Folium/Earth Engine maps embedded in rendered HTML may still request web tiles. For a **true venue-internet outage**, the following views should be captured as static PNG or PDF files after the final successful run.
 
-Recommended filenames:
+Filenames:
 
 - `01_true_colour_swir_indices.png`
 - `02_effis_fire_history.png`
@@ -13,16 +13,4 @@ Recommended filenames:
 - `06_susceptibility_effis.png`
 - `06_weight_sensitivity.png`
 
-Also keep the important non-map plots/tables either in the rendered HTML or as screenshots.
-
-## Capture rule
-
-A good fallback image must include enough context for the original interpretation questions:
-
-- legend or clear visual scale;
-- AOI/reference boundary where relevant;
-- readable title;
-- no personal browser/UI clutter;
-- no credentials, tokens or private file paths.
-
-The goal is not to create a second polished slide deck. The goal is to keep the analytical discussion teachable when map tiles or cloud backends fail.
+The goal is to keep the analytical discussion teachable when map tiles or cloud backends fail.
