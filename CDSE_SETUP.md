@@ -45,7 +45,26 @@ git pull --ff-only
 
 Before updating, save or commit any notebook changes you want to keep.
 
-## 4. Open the course folder
+## 4. Install the course packages
+
+Do not assume that a fresh CDSE Python 3 kernel already contains all packages used by the course.
+
+From the repository root, install the CDSE package set:
+
+```bash
+cd ~/mystorage/fire-school
+python -m pip install -r requirements-cdse.txt
+```
+
+This file contains the analysis packages needed by the course but does not reinstall JupyterLab or the kernel itself.
+
+After installation, restart the notebook kernel before running the preflight:
+
+**Kernel → Restart Kernel**
+
+Runtime pip installations may need to be repeated after a fresh/recreated CDSE JupyterLab session. If the preflight later reports missing core packages, rerun the command above.
+
+## 5. Open the course folder
 
 In the JupyterLab file browser, navigate to:
 
@@ -65,7 +84,7 @@ group_project/
 README.md
 ```
 
-## 5. Select the Python 3 kernel
+## 6. Select the Python 3 kernel
 
 The canonical course notebooks use the standard **Python 3** kernel.
 
@@ -77,7 +96,7 @@ When opening a notebook:
 
 Do not switch the canonical practicals to the dedicated OpenEO kernel.
 
-## 6. Run the preflight
+## 7. Run the preflight
 
 Open:
 
@@ -97,7 +116,7 @@ YOUR COURSE ENVIRONMENT IS READY
 
 Optional packages may be absent without blocking the course.
 
-## 7. Earth Engine authentication
+## 8. Earth Engine authentication
 
 The first Earth Engine check may ask you to authenticate.
 
@@ -114,7 +133,7 @@ export GEE_PROJECT_ID="your-google-cloud-project-id"
 
 If you do not know which project to use, ask the trainer rather than creating an arbitrary project during the practical.
 
-## 8. Start the practicals
+## 9. Start the practicals
 
 Run the notebooks in order:
 
@@ -129,7 +148,7 @@ notebooks/06_fire_susceptibility.ipynb
 
 Run the core cells from top to bottom.
 
-## 9. openEO live backup
+## 10. openEO live backup
 
 Use the openEO fallback only if the class switches because Earth Engine is unavailable.
 
@@ -151,7 +170,7 @@ The first live openEO request can take several minutes. Results are cached in:
 
 so repeated runs are much faster.
 
-## 10. Updating the course files
+## 11. Updating the course files
 
 Use normal Git commands:
 
@@ -163,7 +182,15 @@ git pull --ff-only
 
 If `git status` shows local notebook changes, save, commit or copy them before pulling.
 
-## 11. Temporary weather files
+After an update, rerun:
+
+```bash
+python -m pip install -r requirements-cdse.txt
+```
+
+if the dependency file changed or the preflight reports missing packages.
+
+## 12. Temporary weather files
 
 The two final ERA5-Land NetCDF files are committed to the repository. Intermediate CDS chunks are not.
 
@@ -183,7 +210,7 @@ Both are ignored by Git. Do not force-add them to the repository.
 
 Students do not need to run `scripts/download_era5_land.py`.
 
-## 12. If Git reports a pack-file error
+## 13. If Git reports a pack-file error
 
 Normal clone/fetch/pull in `~/mystorage` has been tested successfully. If Git nevertheless reports an error such as:
 
@@ -213,7 +240,7 @@ git pull --ff-only
 
 If the same error persists, use a fresh clone as a recovery step rather than as the normal course workflow.
 
-## 13. What is persistent?
+## 14. What is persistent?
 
 Persistent:
 
@@ -231,7 +258,7 @@ the current Jupyter session
 
 Therefore keep notebooks, outputs and personal work under `~/mystorage`.
 
-## 14. If something else fails
+## 15. If something else fails
 
 When asking for help, provide:
 
@@ -239,4 +266,4 @@ When asking for help, provide:
 - the notebook and cell number;
 - whether you are using the **Python 3** kernel;
 - the final preflight summary;
-- whether the failure concerns Earth Engine, openEO, local course data, Git or JupyterLab itself.
+- whether the failure concerns package installation, Earth Engine, openEO, local course data, Git or JupyterLab itself.
