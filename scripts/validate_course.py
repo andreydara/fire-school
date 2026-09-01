@@ -35,6 +35,7 @@ REQUIRED_FILES = [
     Path("CDSE_SETUP.md"),
     Path("SETUP_LOCAL.md"),
     Path("requirements.txt"),
+    Path("requirements-cdse.txt"),
     Path("requirements-lock.txt"),
     Path("requirements-optional.txt"),
     Path("requirements-trainer.txt"),
