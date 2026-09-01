@@ -47,8 +47,6 @@ Before updating, save or commit any notebook changes you want to keep.
 
 ## 4. Install the course packages
 
-Do not assume that a fresh CDSE Python 3 kernel already contains all packages used by the course.
-
 From the repository root, install the CDSE package set:
 
 ```bash
