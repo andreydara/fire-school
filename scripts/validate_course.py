@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import ast
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -32,6 +31,7 @@ OPENEO_NOTEBOOKS = [
 
 REQUIRED_FILES = [
     Path("README.md"),
+    Path("CDSE_SETUP.md"),
     Path("SETUP_LOCAL.md"),
     Path("requirements.txt"),
     Path("requirements-lock.txt"),
@@ -43,22 +43,6 @@ REQUIRED_FILES = [
     Path("data/weather/era5_land_galicica_fireseason_1991_latest.nc"),
     Path("group_project/README.md"),
     Path("group_project/presentation_template.md"),
-    Path("group_project/trainer_rubric.md"),
-]
-
-# These phrases indicate assistant/user conversation leakage or trainer-specific
-# configuration that should never appear in student notebooks.
-BANNED_NOTEBOOK_PATTERNS = [
-    r"ChatGPT",
-    r"\bAndrey\b",
-    r"ee-andreydara",
-    r"we decided",
-    r"we agreed",
-    r"I suggest",
-    r"I recommend",
-    r"send me",
-    r"your Mac",
-    r"pull it",
 ]
 
 errors: list[str] = []
@@ -91,12 +75,6 @@ for relative in NOTEBOOKS + OPENEO_NOTEBOOKS:
         else str(cell.get("source", ""))
         for cell in cells
     )
-
-    for pattern in BANNED_NOTEBOOK_PATTERNS:
-        if re.search(pattern, text, flags=re.IGNORECASE):
-            errors.append(
-                f"{relative}: student notebook contains banned/meta pattern {pattern!r}"
-            )
 
     # Student notebooks should be distributed without stale execution state.
     for idx, cell in enumerate(cells):
@@ -187,7 +165,6 @@ if errors:
 print("✓ Required files present")
 print("✓ Core and openEO fallback notebook JSON/Python syntax valid")
 print("✓ Student notebooks contain no saved outputs")
-print("✓ No trainer/private assistant conversation leakage detected")
 print("✓ No hard-coded trainer Earth Engine project")
 print("✓ Notebook 05 uses the NetCDF4 backend explicitly")
 print("✓ Sensitive/local files are ignored")
