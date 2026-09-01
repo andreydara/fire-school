@@ -1,0 +1,19 @@
+# Core packages for the managed CDSE Python 3 kernel.
+#
+# CDSE already provides JupyterLab and the Python kernel itself, so this file
+# intentionally omits jupyterlab/ipykernel. It also accepts the newer pandas
+# version currently used by the managed CDSE image.
+#
+# Install from a JupyterLab terminal:
+#   python -m pip install -r requirements-cdse.txt
+
+numpy>=2.0,<3
+pandas>=2.2,<4
+matplotlib>=3.8,<4
+geopandas>=1.0,<2
+shapely>=2.0,<3
+folium>=0.17,<1
+xarray>=2024.10,<2027
+netCDF4>=1.7,<2
+earthengine-api>=1.1,<2
+requests>=2.31,<3
